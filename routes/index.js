@@ -1,35 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var server_tools = require('../node_modules/server_tools/server_tools.js');
 
-var io;
-/* GET home page. */
-router.get('/', function(req, res, next) {
-	var _date=Date();
-  res.render('../views/home.jade', { title: 'Express' , date: Date()});
-});
+router.get('/pnl', function(req, res, next){
+	console.log("welcome to P&L");
+	console.log(global.appRoot);
+	res.sendFile(global.appRoot + '/pnl.html');
 
-//this is an update from a groundstation
-router.post('/p', function(req, res)
-{ 
-	//we should probably pass this to server_tools
-    console.log(req.body.groundstation_name + ":" + req.body.groundstation_id + ":" + req.body.message);
-
-    /*
-    res.writeHead(200, {'Content-Type':'text/plaintext'});
-    res.end();
-*/
-    var payload={message:req.body.message, groundstation_name: req.body.groundstation_name, groundstation_id: req.body.groundstation_id, number_of_swaps:req.body.swaps};
-    server_tools.parsePost(payload, io);
-
-    // if you want to send to socket
 
 });
 
-// module.exports = router;
-module.exports = function (_io) {
+router.get('/', function(req, res)
+{
+	//res.render('login', { date: Date() });
+	res.sendFile(global.appRoot + '/login.html');
+});
 
-	io = _io;
+router.get('/data', function(req, res)
+{
+	console.log("Data received");
+	console.log(req.body);
+});
 
-	return router;
-}
+module.exports = router;

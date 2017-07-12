@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style type="text/css">
+
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+        .tg .tg-lkh3{background-color:#9aff99}
+        .tg .tg-huad{background-color:#ffccc9}
+        .tg .tg-e3zv{font-weight:bold}
+        .tg .tg-lkhz{background-color:#9aff99}
+        .tg .tg-e3zz{font-weight:bold}
+        .tg .tg-pznz{background-color:#fdddb7}
+
+        .tg .tg-s6z2{text-align:center}
+        .tg .tg-a9he{font-weight:bold;font-size:16px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#343434;color:#ffffff;text-align:center}
+        .tg .tg-465v{font-weight:bold;background-color:#9b9b9b;text-align:center}
+        .tg .tg-psr3{font-weight:bold;background-color:#9b9b9b;color:#000000;text-align:center}
+        @media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}
+
+        #red, #green, #blue {
+            margin: 10px;
+            display: inline-block;
+            height: 200px;
+        }
+
+        #colorpicker {
+            height: 240px;
+            width: 310px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #BFBFBF;
+        }
+
+        #result {
+            margin: 60px 26px;
+            height: 100px;
+            width: 100px;
+            display: inline-block;
+            vertical-align: top;
+            color: rgb(127, 127, 127);
+            background: rgb(127, 127, 127);
+            border: 1px solid #fff;
+            box-shadow: 0 0 10px;
+        }
+
+        #red {
+            background: #c0392b;
+        }
+
+        #green {
+            background: #27ae60;
+        }
+
+        #blue {
+            background: #2980b9;
+        }
+        #spreadslider{
+            background-color: #1ED5DE;
+        }
+        .ui-slider-range{
+            background-color: #D8D8D8;
+        }
+        .tg th .z{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+        .tg .tg-azzz{font-weight:bold;font-size:16px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#343434;color:#ffffff;text-align:center}
+        .tg .tg-4zzz{font-weight:bold;background-color:#9b9b9b;text-align:center}
+        .tg .tg-pzzz{font-weight:bold;background-color:#9b9b9b;color:#000000;text-align:center}
+
+        .btn-default:focus,
+        .btn-default:active,
+        .btn-default.active
+        {
+            background-color: #ffffff;
+        }
+
+        .btn-default:hover
+        {
+            background-color: #ebebeb;
+        }
+    </style>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Zen Trading</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/png">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link src="jquery-ui-1.11.2/jquery-ui.css" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" media="all" href="http://fonts.googleapis.com/css?family=Acme">
+
+    <link src="css/datepicker.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- RR: This will give us nice tables (jqGrid) and a consistent theme (uilight) -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/jquery-ui.css" />
+
+    <script src="scripts/jquery.knob.min.js"></script>
+
+</head>
+
+<body>
+
+
+<div id="wrapper" style="padding-left:0px;">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" >
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--<a class="navbar-brand" href="index.html">Ground Station Data Center</a>-->
+            <img class="navbar-brand" style="height:61px; padding: 7px 6px; margin-left:4px;" src="images/zen_trading.png"/>
+
+            <ul class="nav navbar-nav" style="margin-top:8px; font-size:18px;">
+                <li class="active">
+                    <a href="#"><i class="fa fa-fw fa-home"></i>Home</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-wifi"></i>Manual Trader</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-search"></i>P&L</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-file"></i>Help</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <!--<div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav" style="width:195px; top:47px; margin-top:15px !important;">
+                <li class="active">
+                    <a href="#"><i class="fa fa-fw fa-home"></i>Home</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-wifi"></i>Connect To Station</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-search"></i>Inspect Station</a>
+                </li>
+
+
+            </ul>
+        </div>-->
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper" >
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row" style="height:20px;">
+
+            </div>
+
+            <div class="row">
+                <div  class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i style="margin-right:8px;" class="fa fa-cubes fa-fw"></i>Profit & Loss</h3>
+                        </div>
+                        <div class="panel-body" style="padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;">
+                            <!--  ********************************************************************************* -->
+
+                            <!--  ********************************************************************************* -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.row -->
+
+
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!--set up the rangeslider-->
+<script>
+    $(function(){
+
+        $('#defaultslide').slider({
+            max: 1000,
+            min: 0,
+            value: 500,
+            slide: function(e,ui) {
+                $('#currentval').html(ui.value);
+            }
+        });
+
+        var bidprice=1.13222;
+        var askprice=1.13225;
+        $('#spreadslider').slider({
+            range: true,
+            min: bidprice-0.00004,
+            max: askprice+0.00004,
+            step: 0.00001,
+            values: [ bidprice, askprice ],
+            slide: function( event, ui ) {
+                $('#lowerval').html("Bid: " + ui.values[0]);
+                $('#upperval').html("Ask: " + ui.values[1]);
+            }
+        });
+
+        $('#lowerval').html("Bid: " + bidprice);
+        $('#upperval').html("Ask: " + askprice);
+
+        $('.ui-slider-range').css({"background-color" : "#D8D8D8"});
+    });
+</script>
+
+<!--Set up the dropdown curreny pair selector functionality -->
+<script>
+    $('#block_multiplier_dropdown').change(function()
+    {
+        console.log($('#block_quantity_textbox').val());
+        console.log($('#block_multiplier_dropdown').val());
+        var blocksize=($('#block_quantity_textbox').val()*$('#block_multiplier_dropdown').val());
+        console.log(blocksize);
+        $('#order_size_equals').val(blocksize);
+        $('#trade_details').html(blocksize + " EUR/USD @ 1.29182 EUR/USD");
+    });
+
+    $('#block_quantity_textbox').change(function()
+    {
+        console.log($('#block_quantity_textbox').val());
+        console.log($('#block_multiplier_dropdown').val());
+        var blocksize=$('#block_quantity_textbox').val()*$('#block_multiplier_dropdown').val();
+        console.log(blocksize);
+        $('#order_size_equals').val(blocksize);
+        $('#trade_details').html(blocksize + " EUR/USD @ 1.29182 EUR/USD");
+    });
+
+</script>
+
+
+</body>
+
+</html>

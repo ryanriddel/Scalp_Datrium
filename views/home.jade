@@ -1,18 +1,80 @@
-doctype html(lang='en')
-head
+doctype html
+html(lang='en')
+  head
+    style(type='text/css').
+      .tg  {border-collapse:collapse;border-spacing:0;}
+      .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+      .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+      .tg .tg-lkh3{background-color:#9aff99}
+      .tg .tg-huad{background-color:#ffccc9}
+      .tg .tg-e3zv{font-weight:bold}
+      .tg .tg-lkhz{background-color:#9aff99}
+      .tg .tg-e3zz{font-weight:bold}
+      .tg .tg-pznz{background-color:#fdddb7}
+      .tg .tg-s6z2{text-align:center}
+      .tg .tg-a9he{font-weight:bold;font-size:16px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#343434;color:#ffffff;text-align:center}
+      .tg .tg-465v{font-weight:bold;background-color:#9b9b9b;text-align:center}
+      .tg .tg-psr3{font-weight:bold;background-color:#9b9b9b;color:#000000;text-align:center}
+      @media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}
+      #red, #green, #blue {
+      margin: 10px;
+      display: inline-block;
+      height: 200px;
+      }
+      #colorpicker {
+      height: 240px;
+      width: 310px;
+      margin: 0 auto;
+      padding: 10px;
+      border: 1px solid #BFBFBF;
+      }
+      #result {
+      margin: 60px 26px;
+      height: 100px;
+      width: 100px;
+      display: inline-block;
+      vertical-align: top;
+      color: rgb(127, 127, 127);
+      background: rgb(127, 127, 127);
+      border: 1px solid #fff;
+      box-shadow: 0 0 10px;
+      }
+      #red {
+      background: #c0392b;
+      }
+      #green {
+      background: #27ae60;
+      }
+      #blue {
+      background: #2980b9;
+      }
+      #spreadslider{
+      background-color: #1ED5DE;
+      }
+      .ui-slider-range{
+      background-color: #D8D8D8;
+      }
+      .tg th .z{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 20px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+      .tg .tg-azzz{font-weight:bold;font-size:16px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#343434;color:#ffffff;text-align:center}
+      .tg .tg-4zzz{font-weight:bold;background-color:#9b9b9b;text-align:center}
+      .tg .tg-pzzz{font-weight:bold;background-color:#9b9b9b;color:#000000;text-align:center}
+      .btn-default:focus,
+      .btn-default:active,
+      .btn-default.active
+      {
+      background-color: #ffffff;
+      }
+      .btn-default:hover
+      {
+      background-color: #ebebeb;
+      }
     meta(charset='utf-8')
-    |     
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    |     
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    |     
     meta(name='description', content='')
-    |     
     meta(name='author', content='')
-    |     
-    title Ground Station Manager
-    |     
-    link(rel='shortcut icon', href='images/skycatch_favicon.png', type='image/png')
+    title Zen Trading
+    link(rel='shortcut icon', href='favicon.ico', type='image/png')
     // Bootstrap Core CSS
     link(href='css/bootstrap.css', rel='stylesheet')
     // Custom CSS
@@ -21,227 +83,280 @@ head
     link(href='css/plugins/morris.css', rel='stylesheet')
     // Custom Fonts
     link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
-    |     
     link(src='jquery-ui-1.11.2/jquery-ui.css', rel='stylesheet')
-    |     
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js')
+    link(rel='stylesheet', type='text/css', media='all', href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css')
+    link(rel='stylesheet', type='text/css', media='all', href='http://fonts.googleapis.com/css?family=Acme')
     link(src='css/datepicker.css', rel='stylesheet')
     // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
     // WARNING: Respond.js doesn't work if you view the page via file://
     //if lt IE 9
       script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
-      |         
       script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
     // RR: This will give us nice tables (jqGrid) and a consistent theme (uilight)
     link(rel='stylesheet', type='text/css', media='screen', href='css/jquery-ui.css')
-    |     
-    link(rel='stylesheet', type='text/css', media='screen', href='css/ui.jqgrid.css')
+    script(src='scripts/jquery.knob.min.js')
   body
-  
-
-    #wrapper
+    #wrapper(style='padding-left:0px;')
       // Navigation
       nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
         // Brand and toggle get grouped for better mobile display
         .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
+          button.navbar-toggle(type='button')
             span.sr-only Toggle navigation
-            |                     
             span.icon-bar
-            |                     
             span.icon-bar
-            |                     
             span.icon-bar
-          // <a class="navbar-brand" href="index.html">Ground Station Data Center</a>
-          img.navbar-brand(src='images/skycatch_logo.png')
-        // Top Menu Items
-        ul.nav.navbar-right.top-nav
-          li.dropdown
-            a.dropdown-toggle(href='#', data-toggle='dropdown')
-              i.fa.fa-bell
-              |  
-              b.caret
-            |                     
-            ul.dropdown-menu.alert-dropdown
-              li
-                a(href='#')
-                  | GS1 is down.  
-                  span.label.label-danger Urgent
-              |                         
-              li
-                a(href='#')
-                  | Time Before Failure Decreasing in GS2.  
-                  span.label.label-warning Warning
-              |                         
-              li
-                a(href='#')
-                  | Ryan&apos;s Birthday is Today.  
-                  span.label.label-info Info
-              |                         
-              li
-                a(href='#')
-                  | GS3&apos;s reliability is increasing.  
-                  span.label.label-success Info
-              |                         
-              li.divider
-              |                         
-              li
-                a(href='#') View All
-            // RR: Removed message and profile functionality
-        // Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
-        .collapse.navbar-collapse.navbar-ex1-collapse
-          ul.nav.navbar-nav.side-nav(style='width:195px;')
+          
+          img.navbar-brand(style='height:61px; padding: 7px 6px; margin-left:4px;', src='images/zen_trading.png')
+          ul.nav.navbar-nav(style='margin-top:8px; font-size:18px;')
             li.active
               a(href='#')
                 i.fa.fa-fw.fa-home
                 | Home
-            |                     
             li
               a(href='#')
                 i.fa.fa-fw.fa-wifi
-                | Connect To Station
-            |                     
+                | Manual Trader
             li
-              a(href='#')
+              a(href='pnl')
                 i.fa.fa-fw.fa-search
-                | Inspect Station
-            |                     
-            li#test_button
+                | P & L
+            li
               a(href='#')
                 i.fa.fa-fw.fa-file
                 | Help
+        // Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
+        //
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav" style="width:195px; top:47px; margin-top:15px !important;">
+          <li class="active">
+          <a href="#"><i class="fa fa-fw fa-home"></i>Home</a>
+          </li>
+          <li>
+          <a href="#"><i class="fa fa-fw fa-wifi"></i>Connect To Station</a>
+          </li>
+          <li>
+          <a href="#"><i class="fa fa-fw fa-search"></i>Inspect Station</a>
+          </li>
+          </ul>
+          </div>
         // /.navbar-collapse
-      |         
       #page-wrapper
         .container-fluid
           // Page Heading
+          .row(style='height:20px;')
           .row
             .col-lg-12
-              h1.page-header
-                | Ground Station Manager 
-                small
-              |                         
-              ol.breadcrumb
-                li.active
-                  i.fa.fa-home
-                  |  Home
-          |                 
-          |                 
-          .row
-            #station_explorer.col-lg-12
               .panel.panel-default
                 .panel-heading
                   h3.panel-title
                     i.fa.fa-cubes.fa-fw(style='margin-right:8px;')
-                    | Station Explorer
-                |                             
+                    | Manual Trading
                 .panel-body(style='padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;')
                   // *********************************************************************************
-                  table#station_list_grid(style="font-size:14px?important;")
-                    tr(style="font-size:12px?important;")
-                      td
-                  |  
-                  |                                     
-                  #station_list_pager
+                  #manual_trader(style='width:100% !important; height:450px; margin: 0 auto;')
+                    div(style='float:left; width:40% !important; margin-left:5%; position: relative; margin-top:8%;')
+                      div(style='margin-bottom: 10px; text-align:center;')
+                        h3#trade_details 10 EUR/USD @ 1.29182 EUR/USD
+                      div(style='margin-bottom:10px;')
+                        span Order Size
+                        input#block_quantity_textbox.form-control(style='display: inline; width: 15%;', type='text', value='10')
+                        select#block_multiplier_dropdown.form-control(style='display:inline; width: 19%; margin-left:10px;')
+                          option(value='1') x1
+                          option(value='10') x10
+                          option(value='100') x100
+                          option(value='1000') x1000
+                        span(style='margin: 0 10px 0 10px;')  = 
+                        input#order_size_equals.form-control(style='text-align: right; display:inline; width:196px', value='10')
+                      span Currency Pair: 
+                      select#currency_pair_dropdown.form-control(style='display:inline; width: 25%; ')
+                        option(value='EURUSD') EUR/USD
+                        option(value='GBPUSD') GBP/USD
+                        option(value='AUDUSD') AUD/USD
+                      div(style='float:right;')
+                        span Order Type: 
+                        select#fill_option_dropdown.form-control(style='display:inline; width: 45%;')
+                          option(value='FOK') FOK
+                          option(value='GTC') GTC
+                          option(value='LIMIT') LIMIT
+                          option(value='MARKET') MARKET
+                          option(value='STOP') STOP
+                          option(value='TRAILSTOP') TRAIL STOP
+                          option(value='ALLORNONE') ALL OR NONE
+                      br
+                      br
+                      #spreadslider
+                      span#lowerval(style='float:left;')
+                      span#upperval(style='float:right;')
+                      div(style='margin-top:70px;')
+                        input.form-control(type='button', style='cursor: url(http://cur.cursors-4u.net/cursors/cur-9/cur865.ani), url(http://cur.cursors-4u.net/cursors/cur-9/cur865.png), progress !important; display:inline; width:48%; float:left;', value='Buy')
+                        input.form-control(type='button', style='cursor: url(http://cur.cursors-4u.net/cursors/cur-8/cur740.ani), url(http://cur.cursors-4u.net/cursors/cur-8/cur740.png), progress !important; display:inline; width:48%; float: right;', value='Sell')
+                    div(style='float:right; width: 50% !important; height:100%;')
+                      script(type='text/javascript', src='https://d33t3vvu2t2yu5.cloudfront.net/tv.js')
+                      script(type='text/javascript').
+                        var thing=new TradingView.widget({
+                        "autosize": true,
+                        "symbol": "EURUSD",
+                        "interval": "1",
+                        "timezone": "America/Chicago",
+                        "theme": "White",
+                        "style": "1",
+                        "locale": "en",
+                        "toolbar_bg": "#f1f3f6",
+                        "allow_symbol_change": true,
+                        "hideideas": true,
+                        "show_popup_button": true,
+                        "popup_width": "1000",
+                        "popup_height": "650"
+                        });
+                        window.priceChart=thing;
+                      // TradingView Widget END
                   // *********************************************************************************
-          |                 
           .row
-            #station_error.col-lg-6
+            #rms_monitor.col-lg-5
               .panel.panel-default
                 .panel-heading
                   h3.panel-title
                     i.fa.fa-exclamation.fa-fw(style='margin-right:8px')
-                    | Most Error-Prone Stations
-                |                             
+                    | Resource Server Summary
                 .panel-body(style='padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;')
                   // *********************************************************************************
-                  table#station_error_grid(style="font-size:11px;")
+                  table.tg(style='width:100%;')
                     tr
-                      td
-                  |  
-                  |                                 
-                  #station_error_grid_pager
+                      th.tg-e3zv Resource Name
+                      th.tg-e3zv IP Address
+                      th.tg-e3zv Type
+                      th.tg-e3zv Status
+                    tr
+                      td.tg-lkh3 OrderRouter_ADM
+                      td.tg-lkh3 31.41.59.265
+                      td.tg-lkh3 Order Router
+                      td.tg-lkh3 Online
+                    tr
+                      td.tg-huad OrderRouter_KCG
+                      td.tg-huad 76.128.22.1:9010
+                      td.tg-huad Order Router
+                      td.tg-huad Offline
+                    tr
+                      td.tg-lkh3 InternalPositions1
+                      td.tg-lkh3 127.0.0.1:8030
+                      td.tg-lkh3 Position Server
+                      td.tg-lkh3 Online
+                    tr
+                      td.tg-lkh3 CamanFeed
+                      td.tg-lkh3 27.182.81.9:8080
+                      td.tg-lkh3 Feed Handler
+                      td.tg-lkh3 Online
+                    tr
+                      td.tg-lkh3 ZenFeed
+                      td.tg-lkh3 127.0.0.1:8031
+                      td.tg-lkh3 Feed Handler
+                      td.tg-lkh3 Online
                   // *********************************************************************************
-            |                     
-            #recent_error.col-lg-6
+            #counterparty_monitor.col-lg-7
               .panel.panel-default
                 .panel-heading
                   h3.panel-title
                     i.fa.fa-clock-o.fa-fw(style='margin-right:8px;')
-                    | Most Recent Errors
-                |                             
+                    | Counterparty Summary
                 .panel-body(style='padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;')
                   // *********************************************************************************
-                  table#recent_error_grid(style="font-size:11px!important;")
+                  table.tg(style='width:100%;')
                     tr
-                      td
-                  |  
-                  |                                 
-                  #recent_error_grid_pager
+                      th.tg-e3zz Counterparty Name
+                      th.tg-e3zz IP Address
+                      th.tg-e3zz Type
+                      th.tg-e3zz Last Trade (ID)
+                      th.tg-e3zz Last Trade (Amount/Pair)
+                      th.tg-e3zz Last Trade (Rate)
+                    tr
+                      td.tg-pznz Peter (GS) @ FD
+                      td.tg-pznz 31.41.59.265
+                      td.tg-pznz Buy
+                      td.tg-pznz 156134
+                      td.tg-pznz 1,000,000 (EUR/USD)
+                      td.tg-pznz 1.13049
+                    tr
+                      td.tg-lkhz Paul (GS) @ FD
+                      td.tg-lkhz 76.128.22.1:9010
+                      td.tg-lkhz Sell
+                      td.tg-lkhz 156135
+                      td.tg-lkhz 5,000,000 (EUR/USD)
+                      td.tg-lkhz 1.13050
+                    tr
+                      td.tg-pznz ADM @ FD
+                      td.tg-pznz 127.0.0.1:8030
+                      td.tg-pznz Sell
+                      td.tg-pznz 156136
+                      td.tg-pznz 1,319,100 (EUR/USD)
+                      td.tg-pznz 1.13048
+                    tr
+                      td.tg-pznz ADM @ Integral
+                      td.tg-pznz 27.182.81.9:8080
+                      td.tg-pznz Sell
+                      td.tg-pznz 156137
+                      td.tg-pznz 2,313,555 (EUR/USD)
+                      td.tg-pznz 1.13049
+                    tr
+                      td.tg-pznz ADM @ Integral
+                      td.tg-pznz 127.0.0.1:8031
+                      td.tg-pznz Sell
+                      td.tg-pznz 156138
+                      td.tg-pznz 102,111 (EUR/USD)
+                      td.tg-pznz 1.13050
                   // *********************************************************************************
-          |                 
-          .row
-            .col-lg-12
-              .panel.panel-default
-                .panel-heading
-                  h3.panel-title
-                    i.fa.fa-bar-chart-o.fa-fw(style='margin-right: 8px;')
-                    | Failure Rate By Module 
-                    |                                     
-                    div(style='float:right;')
-                      | Start Date: 
-                      input#module_error_start_date.datepick(style='font-size:14px;', display='inline-block;', type='text', value='01-01-1970', size='10')
-                      |    End Date: 
-                      input#module_error_end_date.datepick(style='font-size:14px;', size='10', display='inline-block;', type='text', value='03-14-2015')
-                  // <p>Date: <input type="text" id="datepicker"></p>
-                  span.add-on
-                    i.icon-th
-                |                             
-                #module_error_plot(style='height:250px;')
-          |                 
-          .row
-            .col-lg-12
-              .panel.panel-default
-                .panel-heading
-                  h3.panel-title
-                    i.fa.fa-bar-chart-o.fa-fw(style='margin-right: 8px;')
-                    | Swaps Before Failure
-                    |                                 
-                    div(style='float:right;')
-                      span(style='padding-right:5px;') Independent Variable:
-                      |   
-                      |                                     
-                      select#swap_failure_dropdown(name='swap_failure_dropdown', onchange='dropDownClick()', style='float:right;')
-                        option(value='date') Date
-                        |                                         
-                        option(value='gs_average') GS# (Average)
-                        |                                         
-                        option(value='gs_recent') GS# (Most Recent)
-                        |                                         
-                        option(value='gs_best') GS# (Best)
-                  |                                 
-                  |                                 
-                  |                                 
-                  span.add-on
-                    i.icon-th
-                |                             
-                |                             
-                #swap_failure_plot(style='height:250px;')
           // /.row
           // /.row
         // /.container-fluid
       // /#page-wrapper
     // /#wrapper
-    script(src='js/jquery-1.11.2.js', type='text/javascript')
-    script(src='../javascripts/socket.io.js')
-    |     
-    script(src='js/bootstrap.min.js')
-    |     
-    script(src='js/jquery.jqGrid.min.js', type='text/javascript')
-    |     <script src="../javascripts/global.js"></script>
-    script(src='js/i18n/grid.locale-en.js', type='text/javascript')
-    // <script src="js/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
-    script(src='js/bootstrap-datepicker.js', type='text/javascript')
-    // include after bootstrap  
-    script(src='js/plugins/morris/raphael.min.js')
-    |     
-    script(src='js/plugins/morris/morris.js')
+    // set up the rangeslider
+    script.
+      $(function(){
+      $('#defaultslide').slider({
+      max: 1000,
+      min: 0,
+      value: 500,
+      slide: function(e,ui) {
+      $('#currentval').html(ui.value);
+      }
+      });
+      var bidprice=1.13222;
+      var askprice=1.13225;
+      $('#spreadslider').slider({
+      range: true,
+      min: bidprice-0.00004,
+      max: askprice+0.00004,
+      step: 0.00001,
+      values: [ bidprice, askprice ],
+      slide: function( event, ui ) {
+      $('#lowerval').html("Bid: " + ui.values[0]);
+      $('#upperval').html("Ask: " + ui.values[1]);
+      }
+      });
+      $('#lowerval').html("Bid: " + bidprice);
+      $('#upperval').html("Ask: " + askprice);
+      $('.ui-slider-range').css({"background-color" : "#D8D8D8"});
+      });
+    // Set up the dropdown curreny pair selector functionality
+    script.
+      $('#block_multiplier_dropdown').change(function()
+      {
+      console.log($('#block_quantity_textbox').val());
+      console.log($('#block_multiplier_dropdown').val());
+      var blocksize=($('#block_quantity_textbox').val()*$('#block_multiplier_dropdown').val());
+      console.log(blocksize);
+      $('#order_size_equals').val(blocksize);
+      $('#trade_details').html(blocksize + " EUR/USD @ 1.29182 EUR/USD");
+      });
+      $('#block_quantity_textbox').change(function()
+      {
+      console.log($('#block_quantity_textbox').val());
+      console.log($('#block_multiplier_dropdown').val());
+      var blocksize=$('#block_quantity_textbox').val()*$('#block_multiplier_dropdown').val();
+      console.log(blocksize);
+      $('#order_size_equals').val(blocksize);
+      $('#trade_details').html(blocksize + " EUR/USD @ 1.29182 EUR/USD");
+      });
