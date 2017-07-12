@@ -1,0 +1,5 @@
+
+> nodetest@0.0.0 start /Users/skycatchpro/Desktop/dashboard_experimental
+> node ./bin/www
+
+listening on 3334

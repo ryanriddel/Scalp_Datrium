@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Ground Station Manager</title>
+    <link rel="shortcut icon" href="images/skycatch_favicon.png" type="image/png">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link src="jquery-ui-1.11.2/jquery-ui.css" rel="stylesheet">
+
+    <link src="css/datepicker.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- RR: This will give us nice tables (jqGrid) and a consistent theme (uilight) -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+     
+    
+    
+
+
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--<a class="navbar-brand" href="index.html">Ground Station Data Center</a>-->
+                <img class="navbar-brand" src="images/skycatch_logo.png"/>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <a href="#">GS1 is down.  <span class="label label-danger">Urgent</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Time Before Failure Decreasing in GS2.  <span class="label label-warning">Warning</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Ryan's Birthday is Today.  <span class="label label-info">Info</span></a>
+                        </li>
+                        <li>
+                            <a href="#">GS3's reliability is increasing.  <span class="label label-success">Info</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>
+                    </ul>
+                    <!--RR: Removed message and profile functionality-->
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav" style="width:195px;">
+                    <li class="active">
+                        <a href="#"><i class="fa fa-fw fa-home"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-wifi"></i>Connect To Station</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-search"></i>Inspect Station</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-file"></i>Help</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Ground Station Manager <small></small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-home"></i> Home
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div id="station_explorer" class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i style="margin-right:8px;" class="fa fa-cubes fa-fw"></i>Station Explorer</h3>
+                            </div>
+                            <div class="panel-body" style="padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;">
+                                    <!--  ********************************************************************************* -->
+                                    <table id="station_explorer_grid"><tr><td></td></tr></table> 
+                                    <div id="station_explorer_pager"></div> 
+                                    <!--  ********************************************************************************* -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="station_error" class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> <i style="margin-right:8px" class="fa fa-exclamation fa-fw"></i>Most Error-Prone Stations</h3>
+                            </div>
+                            <div class="panel-body" style="padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;">
+                                <!--  ********************************************************************************* -->
+                                <table id="station_error_grid"><tr><td></td></tr></table> 
+                                <div id="station_error_grid_pager"></div> 
+                                <!--  ********************************************************************************* -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="recent_error" class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> <i style="margin-right:8px;" class="fa fa-clock-o fa-fw"></i>Most Recent Errors</h3>
+                            </div>
+                            <div class="panel-body" style="padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;">
+                                <!--  ********************************************************************************* -->
+                                <table id="recent_error_grid"><tr><td></td></tr></table> 
+                                <div id="recent_error_grid_pager"></div> 
+                                <!--  ********************************************************************************* -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" ><i style="margin-right: 8px;"class="fa fa-bar-chart-o fa-fw"></i>Failure Rate By Module 
+                                    <div style="float:right;" >Start Date: <input style="font-size:14px;" class="datepick" id="module_error_start_date" display="inline-block;"   type="text" value="12-02-2012" size="10">   End Date: <input class="datepick" id="module_error_end_date"  style="font-size:14px;" size="10" line-height:"8px;" display="inline-block;" type="text" value="12-03-2012"></div>
+                                </h3>
+                                <!--<p>Date: <input type="text" id="datepicker"></p>-->
+                                
+                                
+                                <span class="add-on"><i class="icon-th"></i></span>
+
+                            
+
+                            </div>
+
+                            <div id="module_error_plot" style="height:250px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i style="margin-right: 8px;"class="fa fa-bar-chart-o fa-fw"></i>Swaps Before Failure
+                                <div style="float:right;">
+                                    <span style="padding-right:5px;">Independent Variable:</span>  
+                                    <select id="swap_failure_dropdown" name="swap_failure_dropdown" onChange="dropDownClick()" style="float:right;">
+                                        <option value="date">Date</option>
+                                        <option value="gs_average">GS# (Average)</option>
+                                        <option value="gs_recent">GS# (Most Recent)</option>
+                                        <option value="gs_best">GS# (Best)</option>
+                                    </select>
+                                </div>
+                                </h3>
+                                
+                                
+                                <span class="add-on"><i class="icon-th"></i></span>
+
+                                
+
+                            </div>
+                            
+                            <div id="swap_failure_plot" style="height:250px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    
+
+
+    <script src="js/jquery-1.11.2.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
+
+    <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
+    
+    <!--<script src="js/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>-->
+    <script src="js/bootstrap-datepicker.js" type="text/javascript"></script> <!--include after bootstrap-->
+<!-- Morris Charts JavaScript -->
+    
+    <script>
+    //This handles creating new plots when the user selects a different independent variable
+        function dropDownClick()
+        {
+
+            var dropdown_selection=jQuery('#swap_failure_dropdown').children("option").filter(":selected").val();
+
+            //create new plot depending on whats going on.
+            jQuery('#swap_failure_plot').innerHTML='';
+            if(dropdown_selection=="date")
+            {
+
+
+            }
+            else if(dropdown_selection=="gs_average")
+            {
+                Morris.Bar({
+                    element: 'swap_failure_plot',
+                    data: [{
+                        module: 'Battery Arm',
+                        errors: 15
+                    }, {
+                        module: 'Alignment Arm',
+                        errors: 12
+                    }, {
+                        module: 'MAV Carousel',
+                        errors: 6
+                    }, {
+                        module: 'Battery Carousel',
+                        errors: 5
+                    }, {
+                        module: 'Gripper',
+                        errors: 5
+                    },],
+                    xkey: 'module',
+                    ykeys: ['errors'],
+                    labels: ['Errors'],
+                    barRatio: 0.4,
+                    xLabelAngle: 0,
+                    hideHover: 'auto',
+                    resize: true
+                });
+            }
+            else if(dropdown_selection=="gs_recent")
+            {
+                Morris.Bar({
+                    element: 'swap_failure_plot',
+                    data: [{
+                        module: 'Battery Arm',
+                        errors: 19
+                    }, {
+                        module: 'Alignment Arm',
+                        errors: 5
+                    }, {
+                        module: 'MAV Carousel',
+                        errors: 5
+                    }, {
+                        module: 'Battery Carousel',
+                        errors: 5
+                    }, {
+                        module: 'Gripper',
+                        errors: 5
+                    },],
+                    xkey: 'module',
+                    ykeys: ['errors'],
+                    labels: ['Errors'],
+                    barRatio: 0.4,
+                    xLabelAngle: 0,
+                    hideHover: 'auto',
+                    resize: true
+                });
+            }
+            else if(dropdown_selection=="gs_best")
+            {
+                Morris.Bar({
+                    element: 'swap_failure_plot',
+                    data: [{
+                        module: 'Battery Arm',
+                        errors: 15
+                    }, {
+                        module: 'Alignment Arm',
+                        errors: 12
+                    }, {
+                        module: 'MAV Carousel',
+                        errors: 6
+                    }, {
+                        module: 'Battery Carousel',
+                        errors: 5
+                    }, {
+                        module: 'Gripper',
+                        errors: 5
+                    },],
+                    xkey: 'module',
+                    ykeys: ['errors'],
+                    labels: ['Errors'],
+                    barRatio: 0.4,
+                    xLabelAngle: 0,
+                    hideHover: 'auto',
+                    resize: true
+                });
+            }
+        }
+
+    </script>
+
+    <script>
+/*This block initializes datepicker objects and sets up event handlers */
+    
+   var datePicker=jQuery('.datepick').datepicker({
+      format: 'mm-dd-yyyy'
+    });
+
+   datePicker.on('changeDate', function(ev)
+   {
+        //this fixes a bug wherein the calendar does not disappear after a date has been selected
+        datePicker.datepicker('hide');
+
+        var beginDate=ev.date;
+        
+        
+   });
+
+   
+    
+</script>
+
+<script>
+/*This block will fix the no-resize bug in jqGrid.*/
+
+jQuery(window).bind('resize', function() {
+    var newWidth1=jQuery('.col-lg-12').width()-2;//the -2 accounts for the jqGrid header overflowing the container.
+    var newWidth2=jQuery('.col-lg-6').width()-2;
+    jQuery('#station_explorer_grid').setGridWidth(newWidth1); 
+    jQuery('#station_error_grid').setGridWidth(newWidth2);
+    jQuery('#recent_error_grid').setGridWidth(newWidth2);
+}).trigger('resize');
+
+</script>
+
+
+
+<script type="text/javascript">
+/*This block initializes the jqGrids and sets up event handlers */
+
+
+    jQuery(function () {
+        //fill station_explorer grid
+    var stationExplorer=document.getElementById("station_explorer");
+    var stationErrorGrid=document.getElementById("station_error");
+    var recentErrorGrid=document.getElementById("recent_error");
+        
+    var stationExplorerWidth=stationExplorer.clientWidth;
+    stationExplorerWidth-=30; //this is to accomodate the leftmost header cell.
+
+    var stationExplorerColWidth=[50/450*stationExplorerWidth, 90/450*stationExplorerWidth, 80/450*stationExplorerWidth, 60/450*stationExplorerWidth, 120/450*stationExplorerWidth, 50/450*stationExplorerWidth];
+
+    jQuery("#station_explorer_grid")
+    .jqGrid({
+        url: "app.php",
+        datatype: "xml",
+        mtype: "GET",
+        colNames: ["Name", "Start Time", "Stop Time", "Status", "Number of Swaps", "Link"],
+        colModel: [
+            { name: "gs_name", width: stationExplorerColWidth[0] },
+            { name: "gs_start_time", width: stationExplorerColWidth[1] },
+            { name: "gs_end_time", width: stationExplorerColWidth[2], align: "right" },
+            { name: "gs_status", width: stationExplorerColWidth[3], align: "right" },
+            { name: "gs_swaps", width: stationExplorerColWidth[4], align: "right" },
+            { name: "gs_link", width: stationExplorerColWidth[5], sortable: false }
+        ],
+        pager: "#station_explorer_pager",
+        rowNum: 10,
+        rowList: [10, 20, 30],
+        sortname: "invid",
+        sortorder: "desc",
+        viewrecords: true,
+        gridview: true,
+        autoencode: true,
+        //caption: "Station Explorer"
+    });
+
+    //fill most error-prone stations grid
+
+
+    var stationErrorGridWidth=stationErrorGrid.clientWidth;
+    //containerWidth=containerWidth-container.css('padding-right')-container.css('padding-left');
+    stationErrorGridWidth-=30; //this is to accomodate the minimization arrow.
+    var stationErrorGridColWidth=[50/490*stationErrorGridWidth, 120/490*stationErrorGridWidth, 160/490*stationErrorGridWidth, 160/490*stationErrorGridWidth];
+
+    jQuery("#station_error_grid")
+    .jqGrid({
+        url: "app.php",
+        datatype: "xml",
+        mtype: "GET",
+        colNames: ["Name", "Lifetime Errors", "Last Error (Date)", "Last Error (Type)"],
+        colModel: [
+            { name: "gs_name", width: stationErrorGridColWidth[0] },
+            { name: "gs_lifetime_errors", width: stationErrorGridColWidth[1] },
+            { name: "gs_last_error_date", width: stationErrorGridColWidth[2], align: "right" },
+            { name: "gs_last_error_type", width: stationErrorGridColWidth[3], align: "right" }
+        ],
+        pager: "#station_error_grid_pager",
+        rowNum: 10,
+        rowList: [10, 20, 30],
+        sortname: "invid",
+        sortorder: "desc",
+        viewrecords: true,
+        gridview: true,
+        autoencode: true,
+        viewsortcols: [true,'vertical', false]
+        //caption: ""
+    });
+
+    var recentErrorGridWidth=recentErrorGrid.clientWidth;
+    //containerWidth=containerWidth-container.css('padding-right')-container.css('padding-left');
+    recentErrorGridWidth-=30; //this is to accomodate the minimization arrow.
+    var recentErrorGridColWidth=[50/490*recentErrorGridWidth, 120/490*recentErrorGridWidth, 160/490*recentErrorGridWidth, 160/490*recentErrorGridWidth];
+
+    jQuery("#recent_error_grid")
+    .jqGrid({
+        url: "app.php",
+        datatype: "xml",
+        mtype: "GET",
+        colNames: ["Name", "Lifetime Errors", "Last Error (Date)", "Last Error (Type)"],
+        colModel: [
+            { name: "gs_name", width: recentErrorGridColWidth[0] },
+            { name: "gs_error_type", width: recentErrorGridColWidth[1] },
+            { name: "gs_error_state", width: recentErrorGridColWidth[2], align: "right" },
+            { name: "gs_error_date", width: recentErrorGridColWidth[3], align: "right" }
+        ],
+        pager: "#recent_error_grid_pager",
+        rowNum: 10,
+        rowList: [10, 20, 30],
+        sortname: "invid",
+        sortorder: "desc",
+        viewrecords: true,
+        gridview: true,
+        autoencode: true,
+        //caption: "Station Explorer"
+    });
+
+
+
+
+    }); 
+</script>
+
+<script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+extends layout
+
+block content
+	|	<script src="javascripts/socket.io.js"></script>
+	|	
+
+	h1= date
+
+
+	h2 Ground Stations
+
+	h2 Add Station
+	#add_station
+		fieldset
+			input#input_station_name(type='text', placeholder='Name')
+			input#input_station_id(type='text', placeholder='ID')
+			br
+			input#input_station_birth_date(type='text', placeholder='1/1/2015')
+			input#input_station_status(type='text', placeholder='Status')
+			br
+			input#input_station_last_error(type='text', placeholder='Last Error')
+			br
+			button#btn_add_station Add User
+
+	#station_info
+	h2 Station Info
+
+	p
+		strong Name:
+		|	<span id='station_name'></span>
+		br
+		strong Online Date:
+		|	<span id='station_birth_date'></span>
+		br
+		strong ID:
+		|	<span id='station_id'></span>
+		br
+		strong Status:
+		|	<span id='station_status'></span>
+
+	table#stationlist
+		thead
+			th Name
+			th Status
+			th Delete?
+		tbody
+
+	input#socket_data(type='text',placeholder='Socket Data')
+	button#btn_send_socket Send Data

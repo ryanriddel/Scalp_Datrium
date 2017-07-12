@@ -1,0 +1,460 @@
+doctype html(lang='en')
+head
+    meta(charset='utf-8')
+    |     
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    |     
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    |     
+    meta(name='description', content='')
+    |     
+    meta(name='author', content='')
+    |     
+    title Ground Station Manager
+    |     
+    link(rel='shortcut icon', href='images/skycatch_favicon.png', type='image/png')
+    // Bootstrap Core CSS
+    link(href='css/bootstrap.css', rel='stylesheet')
+    // Custom CSS
+    link(href='css/sb-admin.css', rel='stylesheet')
+    // Morris Charts CSS
+    link(href='css/plugins/morris.css', rel='stylesheet')
+    // Custom Fonts
+    link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    |     
+    link(src='jquery-ui-1.11.2/jquery-ui.css', rel='stylesheet')
+    |     
+    link(src='css/datepicker.css', rel='stylesheet')
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      |         
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    // RR: This will give us nice tables (jqGrid) and a consistent theme (uilight)
+    link(rel='stylesheet', type='text/css', media='screen', href='css/jquery-ui.css')
+    |     
+    link(rel='stylesheet', type='text/css', media='screen', href='css/ui.jqgrid.css')
+  body
+  
+
+    #wrapper
+      // Navigation
+      nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
+            span.sr-only Toggle navigation
+            |                     
+            span.icon-bar
+            |                     
+            span.icon-bar
+            |                     
+            span.icon-bar
+          // <a class="navbar-brand" href="index.html">Ground Station Data Center</a>
+          img.navbar-brand(src='images/skycatch_logo.png')
+        // Top Menu Items
+        ul.nav.navbar-right.top-nav
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              i.fa.fa-bell
+              |  
+              b.caret
+            |                     
+            ul.dropdown-menu.alert-dropdown
+              li
+                a(href='#')
+                  | GS1 is down.  
+                  span.label.label-danger Urgent
+              |                         
+              li
+                a(href='#')
+                  | Time Before Failure Decreasing in GS2.  
+                  span.label.label-warning Warning
+              |                         
+              li
+                a(href='#')
+                  | Ryan&apos;s Birthday is Today.  
+                  span.label.label-info Info
+              |                         
+              li
+                a(href='#')
+                  | GS3&apos;s reliability is increasing.  
+                  span.label.label-success Info
+              |                         
+              li.divider
+              |                         
+              li
+                a(href='#') View All
+            // RR: Removed message and profile functionality
+        // Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
+        .collapse.navbar-collapse.navbar-ex1-collapse
+          ul.nav.navbar-nav.side-nav(style='width:195px;')
+            li.active
+              a(href='#')
+                i.fa.fa-fw.fa-home
+                | Home
+            |                     
+            li
+              a(href='#')
+                i.fa.fa-fw.fa-wifi
+                | Connect To Station
+            |                     
+            li
+              a(href='#')
+                i.fa.fa-fw.fa-search
+                | Inspect Station
+            |                     
+            li
+              a(href='#')
+                i.fa.fa-fw.fa-file
+                | Help
+            li
+              button#test_button Test
+        // /.navbar-collapse
+      |         
+      #page-wrapper
+        .container-fluid
+          // Page Heading
+          .row
+            .col-lg-12
+              h1.page-header
+                | Ground Station Manager 
+                small
+              |                         
+              ol.breadcrumb
+                li.active
+                  i.fa.fa-home
+                  |  Home
+          |                 
+          |                 
+          .row
+            #station_explorer.col-lg-12
+              .panel.panel-default
+                .panel-heading
+                  h3.panel-title
+                    i.fa.fa-cubes.fa-fw(style='margin-right:8px;')
+                    | Station Explorer
+                |                             
+                .panel-body(style='padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;')
+                  // *********************************************************************************
+                  table#station_explorer_grid
+                    tr
+                      td
+                  |  
+                  |                                     
+                  #station_explorer_pager
+                  // *********************************************************************************
+          |                 
+          .row
+            #station_error.col-lg-6
+              .panel.panel-default
+                .panel-heading
+                  h3.panel-title
+                    i.fa.fa-exclamation.fa-fw(style='margin-right:8px')
+                    | Most Error-Prone Stations
+                |                             
+                .panel-body(style='padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;')
+                  // *********************************************************************************
+                  table#station_error_grid
+                    tr
+                      td
+                  |  
+                  |                                 
+                  #station_error_grid_pager
+                  // *********************************************************************************
+            |                     
+            #recent_error.col-lg-6
+              .panel.panel-default
+                .panel-heading
+                  h3.panel-title
+                    i.fa.fa-clock-o.fa-fw(style='margin-right:8px;')
+                    | Most Recent Errors
+                |                             
+                .panel-body(style='padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px;')
+                  // *********************************************************************************
+                  table#recent_error_grid
+                    tr
+                      td
+                  |  
+                  |                                 
+                  #recent_error_grid_pager
+                  // *********************************************************************************
+          |                 
+          .row
+            .col-lg-12
+              .panel.panel-default
+                .panel-heading
+                  h3.panel-title
+                    i.fa.fa-bar-chart-o.fa-fw(style='margin-right: 8px;')
+                    | Failure Rate By Module 
+                    |                                     
+                    div(style='float:right;')
+                      | Start Date: 
+                      input#module_error_start_date.datepick(style='font-size:14px;', display='inline-block;', type='text', value='12-02-2012', size='10')
+                      |    End Date: 
+                      input#module_error_end_date.datepick(style='font-size:14px;', size='10', display='inline-block;', type='text', value='12-03-2012')
+                  // <p>Date: <input type="text" id="datepicker"></p>
+                  span.add-on
+                    i.icon-th
+                |                             
+                #module_error_plot(style='height:250px;')
+          |                 
+          .row
+            .col-lg-12
+              .panel.panel-default
+                .panel-heading
+                  h3.panel-title
+                    i.fa.fa-bar-chart-o.fa-fw(style='margin-right: 8px;')
+                    | Swaps Before Failure
+                    |                                 
+                    div(style='float:right;')
+                      span(style='padding-right:5px;') Independent Variable:
+                      |   
+                      |                                     
+                      select#swap_failure_dropdown(name='swap_failure_dropdown', onchange='dropDownClick()', style='float:right;')
+                        option(value='date') Date
+                        |                                         
+                        option(value='gs_average') GS# (Average)
+                        |                                         
+                        option(value='gs_recent') GS# (Most Recent)
+                        |                                         
+                        option(value='gs_best') GS# (Best)
+                  |                                 
+                  |                                 
+                  |                                 
+                  span.add-on
+                    i.icon-th
+                |                             
+                |                             
+                #swap_failure_plot(style='height:250px;')
+          // /.row
+          // /.row
+        // /.container-fluid
+      // /#page-wrapper
+    // /#wrapper
+    script(src='js/jquery-1.11.2.js', type='text/javascript')
+    script(src='../javascripts/socket.io.js')
+    |     
+    script(src='js/bootstrap.min.js')
+    |     
+    script(src='js/jquery.jqGrid.min.js', type='text/javascript')
+    |     <script src="../javascripts/global.js"></script>
+    script(src='js/i18n/grid.locale-en.js', type='text/javascript')
+    // <script src="js/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
+    script(src='js/bootstrap-datepicker.js', type='text/javascript')
+    // include after bootstrap
+    // Morris Charts JavaScript
+    script.
+      //This handles creating new plots when the user selects a different independent variable
+      function dropDownClick()
+      {
+      var dropdown_selection=jQuery('#swap_failure_dropdown').children("option").filter(":selected").val();
+      //create new plot depending on whats going on.
+      jQuery('#swap_failure_plot').innerHTML='';
+      if(dropdown_selection=="date")
+      {
+      }
+      else if(dropdown_selection=="gs_average")
+      {
+      Morris.Bar({
+      element: 'swap_failure_plot',
+      data: [{
+      module: 'Battery Arm',
+      errors: 15
+      }, {
+      module: 'Alignment Arm',
+      errors: 12
+      }, {
+      module: 'MAV Carousel',
+      errors: 6
+      }, {
+      module: 'Battery Carousel',
+      errors: 5
+      }, {
+      module: 'Gripper',
+      errors: 5
+      },],
+      xkey: 'module',
+      ykeys: ['errors'],
+      labels: ['Errors'],
+      barRatio: 0.4,
+      xLabelAngle: 0,
+      hideHover: 'auto',
+      resize: true
+      });
+      }
+      else if(dropdown_selection=="gs_recent")
+      {
+      Morris.Bar({
+      element: 'swap_failure_plot',
+      data: [{
+      module: 'Battery Arm',
+      errors: 19
+      }, {
+      module: 'Alignment Arm',
+      errors: 5
+      }, {
+      module: 'MAV Carousel',
+      errors: 5
+      }, {
+      module: 'Battery Carousel',
+      errors: 5
+      }, {
+      module: 'Gripper',
+      errors: 5
+      },],
+      xkey: 'module',
+      ykeys: ['errors'],
+      labels: ['Errors'],
+      barRatio: 0.4,
+      xLabelAngle: 0,
+      hideHover: 'auto',
+      resize: true
+      });
+      }
+      else if(dropdown_selection=="gs_best")
+      {
+      Morris.Bar({
+      element: 'swap_failure_plot',
+      data: [{
+      module: 'Battery Arm',
+      errors: 15
+      }, {
+      module: 'Alignment Arm',
+      errors: 12
+      }, {
+      module: 'MAV Carousel',
+      errors: 6
+      }, {
+      module: 'Battery Carousel',
+      errors: 5
+      }, {
+      module: 'Gripper',
+      errors: 5
+      },],
+      xkey: 'module',
+      ykeys: ['errors'],
+      labels: ['Errors'],
+      barRatio: 0.4,
+      xLabelAngle: 0,
+      hideHover: 'auto',
+      resize: true
+      });
+      }
+      }
+    |     
+    script.
+      /*This block initializes datepicker objects and sets up event handlers */
+      var datePicker=jQuery('.datepick').datepicker({
+      format: 'mm-dd-yyyy'
+      });
+      datePicker.on('changeDate', function(ev)
+      {
+      //this fixes a bug wherein the calendar does not disappear after a date has been selected
+      datePicker.datepicker('hide');
+      var beginDate=ev.date;
+      });
+    script.
+      /*This block will fix the no-resize bug in jqGrid.*/
+      jQuery(window).bind('resize', function() {
+      var newWidth1=jQuery('.col-lg-12').width()-2;//the -2 accounts for the jqGrid header overflowing the container.
+      var newWidth2=jQuery('.col-lg-6').width()-2;
+      jQuery('#station_explorer_grid').setGridWidth(newWidth1);
+      jQuery('#station_error_grid').setGridWidth(newWidth2);
+      jQuery('#recent_error_grid').setGridWidth(newWidth2);
+      }).trigger('resize');
+    script(type='text/javascript').
+      /*This block initializes the jqGrids and sets up event handlers */
+      jQuery(function () {
+      //fill station_explorer grid
+      var stationExplorer=document.getElementById("station_explorer");
+      var stationErrorGrid=document.getElementById("station_error");
+      var recentErrorGrid=document.getElementById("recent_error");
+      var stationExplorerWidth=stationExplorer.clientWidth;
+      stationExplorerWidth-=30; //this is to accomodate the leftmost header cell.
+      var stationExplorerColWidth=[50/450*stationExplorerWidth, 90/450*stationExplorerWidth, 80/450*stationExplorerWidth, 60/450*stationExplorerWidth, 120/450*stationExplorerWidth, 50/450*stationExplorerWidth];
+      jQuery("#station_explorer_grid")
+      .jqGrid({
+      url: "app.php",
+      datatype: "xml",
+      mtype: "GET",
+      colNames: ["Name", "Start Time", "Stop Time", "Status", "Number of Swaps", "Link"],
+      colModel: [
+      { name: "gs_name", width: stationExplorerColWidth[0] },
+      { name: "gs_start_time", width: stationExplorerColWidth[1] },
+      { name: "gs_end_time", width: stationExplorerColWidth[2], align: "right" },
+      { name: "gs_status", width: stationExplorerColWidth[3], align: "right" },
+      { name: "gs_swaps", width: stationExplorerColWidth[4], align: "right" },
+      { name: "gs_link", width: stationExplorerColWidth[5], sortable: false }
+      ],
+      pager: "#station_explorer_pager",
+      rowNum: 10,
+      rowList: [10, 20, 30],
+      sortname: "invid",
+      sortorder: "desc",
+      viewrecords: true,
+      gridview: true,
+      autoencode: true,
+      //caption: "Station Explorer"
+      });
+      //fill most error-prone stations grid
+      var stationErrorGridWidth=stationErrorGrid.clientWidth;
+      //containerWidth=containerWidth-container.css('padding-right')-container.css('padding-left');
+      stationErrorGridWidth-=30; //this is to accomodate the minimization arrow.
+      var stationErrorGridColWidth=[50/490*stationErrorGridWidth, 120/490*stationErrorGridWidth, 160/490*stationErrorGridWidth, 160/490*stationErrorGridWidth];
+      jQuery("#station_error_grid")
+      .jqGrid({
+      url: "app.php",
+      datatype: "xml",
+      mtype: "GET",
+      colNames: ["Name", "Lifetime Errors", "Last Error (Date)", "Last Error (Type)"],
+      colModel: [
+      { name: "gs_name", width: stationErrorGridColWidth[0] },
+      { name: "gs_lifetime_errors", width: stationErrorGridColWidth[1] },
+      { name: "gs_last_error_date", width: stationErrorGridColWidth[2], align: "right" },
+      { name: "gs_last_error_type", width: stationErrorGridColWidth[3], align: "right" }
+      ],
+      pager: "#station_error_grid_pager",
+      rowNum: 10,
+      rowList: [10, 20, 30],
+      sortname: "invid",
+      sortorder: "desc",
+      viewrecords: true,
+      gridview: true,
+      autoencode: true,
+      viewsortcols: [true,'vertical', false]
+      //caption: ""
+      });
+      var recentErrorGridWidth=recentErrorGrid.clientWidth;
+      //containerWidth=containerWidth-container.css('padding-right')-container.css('padding-left');
+      recentErrorGridWidth-=30; //this is to accomodate the minimization arrow.
+      var recentErrorGridColWidth=[50/490*recentErrorGridWidth, 120/490*recentErrorGridWidth, 160/490*recentErrorGridWidth, 160/490*recentErrorGridWidth];
+      jQuery("#recent_error_grid")
+      .jqGrid({
+      url: "app.php",
+      datatype: "xml",
+      mtype: "GET",
+      colNames: ["Name", "Lifetime Errors", "Last Error (Date)", "Last Error (Type)"],
+      colModel: [
+      { name: "gs_name", width: recentErrorGridColWidth[0] },
+      { name: "gs_error_type", width: recentErrorGridColWidth[1] },
+      { name: "gs_error_state", width: recentErrorGridColWidth[2], align: "right" },
+      { name: "gs_error_date", width: recentErrorGridColWidth[3], align: "right" }
+      ],
+      pager: "#recent_error_grid_pager",
+      rowNum: 10,
+      rowList: [10, 20, 30],
+      sortname: "invid",
+      sortorder: "desc",
+      viewrecords: true,
+      gridview: true,
+      autoencode: true,
+      //caption: "Station Explorer"
+      });
+      });
+    script(src='js/plugins/morris/raphael.min.js')
+    |     
+    script(src='js/plugins/morris/morris.js')
+    |     
+    script(src='js/plugins/morris/morris-data.js')
